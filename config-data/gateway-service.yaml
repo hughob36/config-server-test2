@@ -1,0 +1,20 @@
+server:
+  port: 443
+  
+spring:
+  cloud:
+    gateway:
+      # Ahora, el 'discovery' se mueve bajo 'server.webflux'
+      server: 
+        webflux:
+          discovery:
+            locator:
+              # Propiedad corregida 1:
+              enabled: true 
+              # Propiedad corregida 2:
+              lower-case-service-id: true 
+              
+      default-filters:
+        - RewritePath: 
+            regexp: ^/.*?/(?<remaining>.*)$
+            replacement: /${remaining}
